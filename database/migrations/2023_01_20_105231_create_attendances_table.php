@@ -14,7 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('attendances', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('employee_name')->nullable();
+            $table->date('time_in')->useCurrent();
+            $table->string('ip_address')->nullable();
             $table->timestamps();
         });
     }

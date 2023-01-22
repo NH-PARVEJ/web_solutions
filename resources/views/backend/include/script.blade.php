@@ -11,9 +11,16 @@
 <script src="{{asset('backend/assets/js/chart.js')}}"></script>
 
 <script src="{{asset('backend/assets/plugins/apexcharts/apexcharts.min.js')}}"></script>
-
 <script src="{{asset('backend/assets/js/app.js')}}"></script>
+
+
+
+
+
+
+
 <script>
+    // time 
     function showTime(){
     var date = new Date();
     var h = date.getHours(); // 0 - 23
@@ -45,7 +52,8 @@
 showTime();
 
 
-
+// date 
 const d = new Date();
 document.getElementById("date").innerHTML = d;
+
 </script>

@@ -44,12 +44,9 @@
         <div class="tab-pane fade" id="v-pills-employees" role="tabpanel" aria-labelledby="v-pills-employees-tab">
             <p>Employees</p>
             <ul>
-                <li><a href="employees.html">All Employees</a></li>
-                <li><a href="holidays.html">Holidays</a></li>
-                <li><a href="leaves.html">Leaves (Admin) <span
+                <li><a href="{{route('employee.manage')}}">All Employees</a></li>
+                <li><a href="leaves.html">Leaves (Employee)<span
                             class="badge rounded-pill bg-primary float-end">1</span></a></li>
-                <li><a href="leaves-employee.html">Leaves (Employee)</a></li>
-                <li><a href="leave-settings.html">Leave Settings</a></li>
                 <li><a href="{{route('attendance.manage')}}">Attendance (Admin)</a></li>
                 <li><a href="{{route('attendance.create')}}">Attendance (Employee)</a></li>
             </ul>

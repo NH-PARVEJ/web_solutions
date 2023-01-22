@@ -1,13 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Attendance;
-use App\Models\User;
-use Carbon\Carbon;
-class AttendanceController extends Controller
+use App\Models\Employee;
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +13,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        
-        $employee_attendance = Attendance::orderBy('id', 'asc')->get();
-        return view('backend.pages.attendance.manage', compact('employee_attendance'));
+        return view('backend.pages.employee.manage');
     }
 
     /**
@@ -28,9 +23,7 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        $employee_attendance = Attendance::orderBy('id', 'asc')->get();
-        $user = User::orderBy('id', 'asc')->get();
-        return view('backend.pages.attendance.create', compact('employee_attendance','user'));
+        return view('backend.pages.employee.create');
     }
 
     /**
@@ -41,18 +34,7 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        $employeeIP = request()->ip();
-        $current = Carbon::now();
-        $employee_attendance = new Attendance();
-        $employee_attendance->employee_name        = $request->employee_name;
-        $employee_attendance->time_in              = $current;
-        $employee_attendance->ip_address           = $employeeIP;
-        
-        $employee_attendance->save();
-        return redirect()->back();
-        
-
-
+        //
     }
 
     /**
