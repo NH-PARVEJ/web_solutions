@@ -17,13 +17,22 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    // For Welcome Page 
+    public const HOME = '/';
+
+    // for super admin // admin dashboard
+    public const ADMIN_DASHBOARD = 'admin/dashboard';
+
+    // for Employee 
+    public const EMPLOYEE_DASHBOARD = 'employee/dashboard';
+
+
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
      *
      * @return void
-     */
+    //  */
     public function boot()
     {
         $this->configureRateLimiting();

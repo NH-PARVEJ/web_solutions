@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-use App\Http\Controllers\Controller;
+use File;
+use Image;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Employee;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+
+
 class EmployeeController extends Controller
 {
     /**
@@ -13,7 +18,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('backend.pages.employee.manage');
+        $employees = User::orderBy('id', 'asc')->where('role', 2)->get();
+        return view('backend.pages.employee.manage', compact('employees'));
     }
 
     /**
@@ -23,7 +29,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('backend.pages.employee.create');
+        $employees = User::orderBy('id', 'asc')->where('role', 2)->get();
+        return view('backend.pages.employee.manage', compact('employees'));
     }
 
     /**
@@ -34,7 +41,43 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employee = new User();
+        if( $request->password == $request->repeat_password){
+            $employee->password                   = Hash::make($request->password);
+            $employee->name                       = $request->name;
+            $employee->phone                      = $request->phone;
+            $employee->email                      = $request->email;
+            $employee->address                    = $request->address;
+            $employee->employee_attendance_code   = $request->employee_attendance_code;
+            $employee->designation                = $request->designation;
+            $employee->department                 = $request->department;
+            $employee->gender                     = $request->gender;
+            $employee->role                       = $request->role;
+            $employee->status                     = $request->status;
+
+
+            if($request->image){
+                $image = $request->file('image');
+                $img = time() . '.' . $image->getClientOriginalExtension();
+                $location = public_path('backend/assets/img/employee/' . $img);
+                Image::make($image)->save($location);
+                $employee->image = $img;
+            }
+
+            if($request->qr_code_image){
+                $qr_code_image = $request->file('qr_code_image');
+                $qr_code = time() . '.' . $qr_code_image->getClientOriginalExtension();
+                $location = public_path('backend/assets/img/qr_code/' . $qr_code);
+                Image::make($qr_code_image)->save($location);
+                $employee->qr_code_image = $qr_code;
+            }
+
+
+            $employee->save();  
+            return redirect()->back();
+
+    }
+
     }
 
     /**
@@ -56,7 +99,16 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+    
+        $employee = User::find($id);
+        if(!is_null($employee)){
+            return view('backend.pages.employee.edit', compact('employee'));
+        }
+
+        else{
+            #404 Page
+        }
+        
     }
 
     /**
@@ -68,8 +120,59 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee = User::find($id);
+
+        if(!is_null($employee)){
+
+            if( $request->password == $request->repeat_password){
+                $employee->password                   = Hash::make($request->password);
+                $employee->name                       = $request->name;
+                $employee->phone                      = $request->phone;
+                $employee->email                      = $request->email;
+                $employee->address                    = $request->address;
+                $employee->employee_attendance_code   = $request->employee_attendance_code;
+                $employee->designation                = $request->designation;
+                $employee->department                 = $request->department;
+                $employee->gender                     = $request->gender;
+                $employee->role                       = $request->role;
+                $employee->status                     = $request->status;
+
+                if($request->image){
+                    // delete image
+                   if(File::exists('backend/assets/img/employee/' . $employee->image)){
+                      File::delete('backend/assets/img/employee/' . $employee->image);
+                    }
+    
+                if($request->image){
+                    $image = $request->file('image');
+                    $img = time() . '.' . $image->getClientOriginalExtension();
+                    $location = public_path('backend/assets/img/employee/' . $img);
+                    Image::make($image)->save($location);
+                    $employee->image = $img;
+                }
+            }
+    
+                   // delete image
+                   if(File::exists('backend/assets/img/qr_code/' . $employee->qr_code_image)){
+                      File::delete('backend/assets/img/qr_code/' . $employee->qr_code_image);
+                    }
+                      
+                if($request->qr_code_image){
+                    $qr_code_image = $request->file('qr_code_image');
+                    $qr_code = time() . '.' . $qr_code_image->getClientOriginalExtension();
+                    $location = public_path('backend/assets/img/qr_code/' . $qr_code);
+                    Image::make($qr_code_image)->save($location);
+                    $employee->qr_code_image = $qr_code;
+                }
+            }
+    
+    
+                $employee->save();  
+                return redirect()->route('employee.manage');
+
+     }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -79,6 +182,13 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employee = User::find($id);
+        if(!is_null($employee)){
+            $employee->delete();
+            return redirect()->route('employee.manage');
+        }
+        else{
+// 404
+        }
     }
 }

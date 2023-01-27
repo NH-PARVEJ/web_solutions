@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\AttendanceController;
 use App\Http\Controllers\Backend\EmployeeController;
+use App\Http\Controllers\Frontend\FrontendController;
 
 
 
@@ -20,21 +20,12 @@ use App\Http\Controllers\Backend\EmployeeController;
 |
 */
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend/pages/home');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+route::group(['prefix' => 'employee'], function(){
+    route::get('/dashboard/{id}', [FrontendController::class, 'index'])->middleware(['auth','IsAdmin'])->name('employee.dashboard');
 });
-
-require __DIR__.'/auth.php';
-
 
 
 
@@ -50,17 +41,14 @@ require __DIR__.'/auth.php';
 |
 */
 
-Route::middleware(['prefix' => 'admin'], function(){
+Route::group(['prefix' => 'admin'], function(){
 
-    route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+    route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'IsAdmin'])->name('admin.dashboard');
 
     route::group(['prefix' => 'attendance'], function(){
         route::get('/manage', [AttendanceController::class, 'index'])->name('attendance.manage');
         route::get('/create', [AttendanceController::class, 'create'])->name('attendance.create');
         route::post('/store', [AttendanceController::class, 'store'])->name('attendance.store');
-        route::get('/edit', [AttendanceController::class, 'edit'])->name('attendance.edit');
-        route::patch('/update', [AttendanceController::class, 'update'])->name('attendance.update');
-        route::delete('/destroy', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
     });
 
 
@@ -69,15 +57,29 @@ Route::middleware(['prefix' => 'admin'], function(){
         route::get('/manage', [EmployeeController::class, 'index'])->name('employee.manage');
         route::get('/create', [EmployeeController::class, 'create'])->name('employee.create');
         route::post('/store', [EmployeeController::class, 'store'])->name('employee.store');
-        route::get('/edit', [EmployeeController::class, 'edit'])->name('employee.edit');
-        route::patch('/update', [EmployeeController::class, 'update'])->name('employee.update');
-        route::delete('/destroy', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+        route::get('/edit/{id}', [EmployeeController::class, 'edit'])->name('employee.edit');
+        route::post('/update/{id}', [EmployeeController::class, 'update'])->name('employee.update');
+        route::post('/destroy/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
     });
 
-    
+     
 });
 
 
+
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
+
+
+require __DIR__.'/auth.php';
 
 
 

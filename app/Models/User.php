@@ -20,7 +20,20 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
+        'image',
+        'qr_code_image',
+        'address',
+        'employee_attendance_code',
+        'designation',
+        'department',
+        'time_in',
+        'ip_address',
+        'gender',
+        'role',
+        'status',
+
     ];
 
     /**
@@ -41,4 +54,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function attendance(){
+    
+        return $this->hasMany(Attendance::class);
+    }
+
 }
+

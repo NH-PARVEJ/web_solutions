@@ -1,47 +1,81 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="en">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Login - Web solutions</title>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('backend/assets/img/favicon.png')}}">
+
+    <link rel="stylesheet" href="{{asset('backend/assets/css/bootstrap.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('backend/assets/plugins/fontawesome/css/fontawesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/assets/plugins/fontawesome/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/assets/css/material.css')}}">
+
+    <link rel="stylesheet" href="{{asset('backend/assets/css/style.css')}}">
+</head>
+
+<body class="account-page">
+
+    <div class="main-wrapper">
+        <div class="account-content">
+            <div class="container">
+                <div class="account-box">
+                    <div class="account-wrapper">
+                        <h3 class="account-title">Login</h3>
+                        <p class="account-subtitle">Access to our dashboard</p>
+                        <x-auth-session-status class="mb-4" :status="session('status')" />
+
+                        <form action="{{route('login')}}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input id="email" class="form-control" type="email" name="email"
+                                        value="{{old('email')}}" required autofocus>
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Password</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        @if (Route::has('password.request'))
+                                        <a href="{{ route('password.request') }}">Forgot Password ?</a>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="position-relative">
+                                    <input class="form-control" type="password" value="{{old('password')}}"
+                                        id="password" name="password">
+                                    <span class="fa fa-eye-slash" id="toggle-password"></span>
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <button class="btn btn-primary account-btn" type="submit">log in</button>
+                            </div>
+                            <div class="account-footer">
+                                <p>Don't have an account yet? <a href="{{route('register')}}">Register</a></p>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+    <script src="{{asset('backend/assets/js/jquery-3.6.0.min.js')}}"></script>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+    <script src="{{asset('backend/assets/js/bootstrap.bundle.min.js')}}"></script>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+    <script src="{{asset('backend/assets/js/app.js')}}"></script>
+</body>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</html>

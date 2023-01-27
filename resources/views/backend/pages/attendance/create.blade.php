@@ -156,12 +156,16 @@
                                 <div class="card st-card st-c1">
                                     <div class="stats-info">
                                         <video style="border-radius:10px;" width="100%" id="MyCameraOpen"></video>
+                                        @foreach($users as $user)
 
                                         <form action="{{route('attendance.store')}}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="employee_name" readonly id="employee_id"
-                                                class=" mt-5 from-control">
+                                            <input type="hidden" name="employee_attendance_code" readonly
+                                                id="employee_id" class=" mt-5 from-control">
+                                            <input type="hidden" name="user_id" value="{{$user->id}}" readonly
+                                                id="employee_id" class=" mt-5 from-control">
                                         </form>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -201,6 +205,7 @@
                                 <th>#SL</th>
                                 <th>Name</th>
                                 <th>Punch In</th>
+                                <th>Scan Value</th>
                                 <th>Punch Out</th>
                                 <th>IP Address</th>
                             </tr>
@@ -214,7 +219,8 @@
                                     @if(Auth::check()) {{Auth::user()->name}} @endif
                                 </td>
                                 <td>{{$attendance->created_at}}</td>
-                                <td></td>
+                                <td>{{$attendance->employee_name}}</td>
+                                <td>{{$attendance->time_out}}</td>
                                 <td>{{$attendance->ip_address}}</td>
                                 @php $i++; @endphp
                             </tr>

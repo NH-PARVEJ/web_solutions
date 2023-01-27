@@ -14,16 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('attendances', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('employee_name')->nullable();
-            $table->date('time_in')->useCurrent();
+            $table->increments('id'); 
+            $table->integer('user_id')->nullable();
+            $table->string('employee_attendance_code')->nullable(); 
             $table->string('ip_address')->nullable();
+            $table->date('time_in')->useCurrent(); 
+            $table->date('time_out')->useCurrent(); 
+            $table->string('status')->default(1)->comment('1=Active 2=Inactive');
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrati  ons.
      *
      * @return void
      */
