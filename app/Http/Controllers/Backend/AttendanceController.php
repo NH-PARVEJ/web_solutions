@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
@@ -18,8 +17,8 @@ class AttendanceController extends Controller
     {
         
         $employee_attendance = Attendance::orderBy('id', 'asc')->get();
-        $users = User::with('attendance')->get();
-        return view('backend.pages.attendance.manage', compact('employee_attendance','users'));
+        $employees = User::with('attendance')->get();
+        return view('backend.pages.attendance.manage', compact('employee_attendance','employees'));
     }
 
     /**
@@ -30,8 +29,8 @@ class AttendanceController extends Controller
     public function create()
     {
         $employee_attendance = Attendance::orderBy('id', 'asc')->get();
-        $users = User::orderBy('id', 'asc')->get();
-        return view('backend.pages.attendance.create', compact('employee_attendance','users'));
+        $employees = User::orderBy('id', 'asc')->get();
+        return view('frontend.pages.attendance.create', compact('employee_attendance','employees'));
     }
 
     /**
@@ -46,11 +45,7 @@ class AttendanceController extends Controller
         $current = Carbon::now();
         $employee_attendance = new Attendance();
 
-        // $employee = User::find($id);
-
-        // $employee_attendance = new User();
-
-        // if($employee_attendance->employee_attendance_code == $request->employee_attendance_code){  
+        // if($employee_attendance->employee_code == $request->employee_attendance_code){  
         $employee_attendance->employee_attendance_code        = $request->employee_attendance_code;
         $employee_attendance->user_id                         = $request->user_id;
         $employee_attendance->time_in                         = $current;
@@ -61,11 +56,10 @@ class AttendanceController extends Controller
         return redirect()->back();
     // }  
 
-    // else{
+    // // else{
+    // //   echo '<div class="alert alert-warning" role="alert">please go your seat and submit only your attendance through the your account</div>';
         
-        // <!-- <div class="alert alert-warning" role="alert">please go your seat and submit only your attendance through the your account</div> -->
-        
-    // }
+    // // }
 
     }
 

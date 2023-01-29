@@ -1,5 +1,7 @@
 @extends('backend.layout.template')
+
 <div class="page-wrapper">
+
     <div class="content container-fluid pb-0">
         <div class="row">
             <div class="col-md-12">
@@ -18,28 +20,48 @@
             <div class="col-md-12 col-lg-12 col-xl-3 d-flex">
                 <div class="card user-card flex-fill">
                     <div class="user-img-sec">
-                        <img src="assets/img/profiles/avatar-02.jpg" alt="User Image">
-                        <h4>John Doe</h4>
-                        <h5>Sr.UI / UX Designer</h5>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
+                        @if (!is_null($employee->image))
+                        <img src="{{asset('backend/assets/img/employee/' . $employee->image)}}" alt="User Image">
+                        @else
+                        <img src="{{asset('backend/assets/img/employee/default_user.jpg')}}" alt="User Image">
+                        @endif
+
+
+                        <h4>{{$employee->name}}</h4>
+                        <h5>
+                            @if($employee->designation == 1)
+                            Jr Developer
+                            @elseif($employee->designation == 1)
+                            Sr Developer
+                            @else
+                            Project-Manager
+                            @endif
+
+                        </h5>
                     </div>
                     <div class="card-body">
-                        <h4>Joining Date <span>20 May 2020</span></h4>
+                        <h4>Joining Date <span>{{$employee->created_at}}</span></h4>
                         <h4>Experience <span>20 years</span></h4>
-                        <h4>Employee Number <span>645658</span></h4>
+                        <h4>Employee Number <span>{{$employee->phone}}</span></h4>
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-12 col-lg-12 col-xl-3 d-flex">
+                <div class="card user-card flex-fill">
+                    <div class="qr-img-sec text-center">
+                        @if (!is_null($employee->image))
+                        <img width="300px" src="{{asset('backend/assets/img/qr_code/' . $employee->qr_code_image)}}"
+                            alt="User Image">
+                        @else
+                        <img src="{{asset('backend/assets/img/qr_code/qr_code.jpg')}}" alt="User Image">
+                        @endif
+                    </div>
+
+                </div>
+            </div>
+
+
             <div class="col-md-12 col-lg-8 col-xl-6 d-flex">
                 <div class="card project-card flex-fill">
                     <h4><i class="fas fa-cube"></i> Projects</h4>
@@ -53,7 +75,8 @@
                                     <div class="task-box color-one">
                                         <div class="task-media">
                                             <div class="task-icon">
-                                                <img src="assets/img/icons/icon-01.png" alt="Icons">
+                                                <img src="{{asset('backend/assets/img/icons/icon-01.png')}}"
+                                                    alt="Icons">
                                             </div>
                                             <div class="task-info">
                                                 <h5>Pending Tasks</h5>
@@ -71,7 +94,8 @@
                                     <div class="task-box color-two">
                                         <div class="task-media">
                                             <div class="task-icon">
-                                                <img src="assets/img/icons/icon-02.png" alt="Icons">
+                                                <img src="{{asset('backend/assets/img/icons/icon-02.png')}}"
+                                                    alt="Icons">
                                             </div>
                                             <div class="task-info">
                                                 <h5>Completed Tasks</h5>
@@ -89,7 +113,8 @@
                                     <div class="task-box color-three">
                                         <div class="task-media">
                                             <div class="task-icon">
-                                                <img src="assets/img/icons/icon-03.png" alt="Icons">
+                                                <img src="{{asset('backend/assets/img/icons/icon-03.png')}}"
+                                                    alt="Icons">
                                             </div>
                                             <div class="task-info">
                                                 <h5>Total Projects</h5>
@@ -108,77 +133,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-4 col-xl-3 d-flex">
-                <div class="card project-card flex-fill">
-                    <h4><i class="fab fa-dropbox"></i> Recent Projects</h4>
-                    <div class="row">
-                        <div class="col-md-12 first-box">
-                            <div class="recent-project-box">
-                                <div class="circle">
-                                    <i class="far fa-image"></i>
-                                </div>
-                                <h3>DreamsHRMS</h3>
-                            </div>
-                            <div class="task-progress">
-                                <h4>Task Done 50/96</h4>
-                                <div class="progress">
-                                    <div class="progress-bar w-75" role="progressbar" aria-valuenow="75"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="task-avatar mt-2">
-                                <div class="avatar-group">
-                                    <div class="avatar">
-                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                            src="assets/img/profiles/avatar-02.jpg">
-                                    </div>
-                                    <div class="avatar">
-                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                            src="assets/img/profiles/avatar-02.jpg">
-                                    </div>
-                                    <div class="avatar">
-                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                            src="assets/img/profiles/avatar-02.jpg">
-                                    </div>
-                                </div>
-                                <a href="#">View More</a>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="recent-project-box">
-                                <div class="circle">
-                                    <i class="far fa-image"></i>
-                                </div>
-                                <h3>Booking template</h3>
-                            </div>
-                            <div class="task-progress">
-                                <h4>Task Done 50/96</h4>
-                                <div class="progress">
-                                    <div class="progress-bar w-75" role="progressbar" aria-valuenow="75"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="task-avatar mt-2">
-                                <div class="avatar-group">
-                                    <div class="avatar">
-                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                            src="assets/img/profiles/avatar-02.jpg">
-                                    </div>
-                                    <div class="avatar">
-                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                            src="assets/img/profiles/avatar-02.jpg">
-                                    </div>
-                                    <div class="avatar">
-                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                            src="assets/img/profiles/avatar-02.jpg">
-                                    </div>
-                                </div>
-                                <a href="#">View More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <div class="row">
             <div class="col-md-12 col-lg-4 d-flex">
@@ -220,26 +175,99 @@
             <div class="col-md-12 col-lg-4 d-flex">
                 <div class="card att-card flex-fill">
                     <div class="card-header">
-                        <h3><i class="fas fa-clock"></i> Time of allowance</h3>
-                        <a href="#">Apply Time off</a>
+                        <h3><i class="fas fa-user-times"></i> Your Leave</h3>
+                        <a href="#">Apply Leave</a>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body leave-ln">
                         <ul>
                             <li>
-                                <h3>5.0 Hours</h3>
-                                <h4>APPROVED</h4>
+                                <h3>25</h3>
+                                <h4>Total Leaves</h4>
                             </li>
                             <li>
-                                <h3>3 hours</h3>
-                                <h4>REMAINING</h4>
+                                <h3>5</h3>
+                                <h4>Remaining Leaves</h4>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+            {{-- <div class="col-md-12 col-lg-4 col-xl-3 d-flex">
+                <div class="card project-card flex-fill">
+                    <h4><i class="fab fa-dropbox"></i> Recent Projects</h4>
+                    <div class="row">
+                        <div class="col-md-12 first-box">
+                            <div class="recent-project-box">
+                                <div class="circle">
+                                    <i class="far fa-image"></i>
+                                </div>
+                                <h3>DreamsHRMS</h3>
+                            </div>
+                            <div class="task-progress">
+                                <h4>Task Done 50/96</h4>
+                                <div class="progress">
+                                    <div class="progress-bar w-75" role="progressbar" aria-valuenow="75"
+                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="task-avatar mt-2">
+                                <div class="avatar-group">
+                                    <div class="avatar">
+                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
+                                            src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}">
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
+                                            src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}">
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
+                                            src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}">
+                                    </div>
+                                </div>
+                                <a href="#">View More</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="recent-project-box">
+                                <div class="circle">
+                                    <i class="far fa-image"></i>
+                                </div>
+                                <h3>Booking template</h3>
+                            </div>
+                            <div class="task-progress">
+                                <h4>Task Done 50/96</h4>
+                                <div class="progress">
+                                    <div class="progress-bar w-75" role="progressbar" aria-valuenow="75"
+                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="task-avatar mt-2">
+                                <div class="avatar-group">
+                                    <div class="avatar">
+                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
+                                            src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}">
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
+                                            src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}">
+                                    </div>
+                                    <div class="avatar">
+                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
+                                            src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}">
+                                    </div>
+                                </div>
+                                <a href="#">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+
         </div>
         <div class="row">
-            <div class="col-md-12 col-lg-12 col-xl-5 d-flex">
+            {{-- <div class="col-md-12 col-lg-12 col-xl-5 d-flex">
                 <div class="card att-card flex-fill">
                     <div class="card-header">
                         <h3><i class="fas fa-calendar-alt"></i> Schedule</h3>
@@ -263,27 +291,27 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <ul class="leave-list">
                                     <li>
-                                        <img src="assets/img/profiles/avatar-02.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}" alt="User">
                                         <p>Richard Miles is off sick today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-02.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}" alt="User">
                                         <p>You are away today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-02.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}" alt="User">
                                         <p>You are working from home today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-02.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}" alt="User">
                                         <p>Richard Miles is off sick today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-02.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}" alt="User">
                                         <p>You are away today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-02.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-02.jpg')}}" alt="User">
                                         <p>You are working from home today</p>
                                     </li>
                                 </ul>
@@ -291,27 +319,27 @@
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <ul class="leave-list">
                                     <li>
-                                        <img src="assets/img/profiles/avatar-03.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-03.jpg')}}" alt="User">
                                         <p>Richard Miles is off sick today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-03.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-03.jpg')}}" alt="User">
                                         <p>You are away today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-03.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-03.jpg')}}" alt="User">
                                         <p>You are working from home today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-03.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-03.jpg')}}" alt="User">
                                         <p>Richard Miles is off sick today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-03.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-03.jpg')}}" alt="User">
                                         <p>You are away today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-03.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-03.jpg')}}" alt="User">
                                         <p>You are working from home today</p>
                                     </li>
                                 </ul>
@@ -319,27 +347,27 @@
                             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                 <ul class="leave-list">
                                     <li>
-                                        <img src="assets/img/profiles/avatar-04.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-04.jpg')}}" alt="User">
                                         <p>Richard Miles is off sick today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-04.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-04.jpg')}}" alt="User">
                                         <p>You are away today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-04.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-04.jpg')}}" alt="User">
                                         <p>You are working from home today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-04.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-04.jpg')}}" alt="User">
                                         <p>Richard Miles is off sick today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-04.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-04.jpg')}}" alt="User">
                                         <p>You are away today</p>
                                     </li>
                                     <li>
-                                        <img src="assets/img/profiles/avatar-04.jpg" alt="User">
+                                        <img src="{{asset('backend/assets/img/profiles/avatar-04.jpg')}}" alt="User">
                                         <p>You are working from home today</p>
                                     </li>
                                 </ul>
@@ -347,144 +375,43 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 d-flex">
-                <div class="card att-card flex-fill">
+            </div> --}}
+            <div class="col-md-12 d-flex">
+                <div class="card card-table flex-fill">
                     <div class="card-header">
-                        <h3><i class="fas fa-birthday-cake"></i> Birthdays</h3>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
+                        <h3 class="card-title mb-0">Attendance List</h3>
                     </div>
-                    <div class="card-body pt-0 pb-0">
-                        <ul class="leave-list bday-list">
-                            <li>
-                                <div class="wish-info">
-                                    <img src="assets/img/profiles/avatar-04.jpg" alt="User">
-                                    <p>Joh Doe</p>
-                                </div>
-                                <a href="#" class="wish-btn">Wish Now</a>
-                            </li>
-                            <li>
-                                <div class="wish-info">
-                                    <img src="assets/img/profiles/avatar-04.jpg" alt="User">
-                                    <p>Nick Harry</p>
-                                </div>
-                                <a href="#">Jan 20</a>
-                            </li>
-                            <li>
-                                <div class="wish-info">
-                                    <img src="assets/img/profiles/avatar-04.jpg" alt="User">
-                                    <p>Juliene</p>
-                                </div>
-                                <a href="#">Jan 20</a>
-                            </li>
-                            <li>
-                                <div class="wish-info">
-                                    <img src="assets/img/profiles/avatar-04.jpg" alt="User">
-                                    <p>Richard</p>
-                                </div>
-                                <a href="#">Jan 20</a>
-                            </li>
-                            <li>
-                                <div class="wish-info">
-                                    <img src="assets/img/profiles/avatar-04.jpg" alt="User">
-                                    <p>Harry Len</p>
-                                </div>
-                                <a href="#">Jan 20</a>
-                            </li>
-                            <li>
-                                <div class="wish-info">
-                                    <img src="assets/img/profiles/avatar-04.jpg" alt="User">
-                                    <p>Ken Druv</p>
-                                </div>
-                                <a href="#">Jan 20</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-4 d-flex">
-                <div class="card uh-card flex-fill">
-                    <div class="card att-card h-set-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-home"></i> Upcoming Holidays</h3>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-nowrap custom-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#SL</th>
+                                        <th>Name</th>
+                                        <th>Punch In</th>
+                                        <th>Punch Out</th>
+                                        <th>IP Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <h2><a href="#"></a>{{$employee->time_in}}</h2>
+                                        </td>
+                                        <td>{{$employee->ip_address}}</td>
+                                        <td>{{$employee->time_in}}</td>
+                                        <td>
+                                            <span class="badge bg-inverse-warning">{{$employee->time_in}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="card-body pt-0 pb-0">
-                            <ul class="leave-list upcoming-list">
-                                <li>
-                                    <div class="d-flex align-items-center">
-                                        <div class="circle">
-                                            <i class="far fa-image"></i>
-                                        </div>
-                                        <h3>DreamsHRMS</h3>
-                                    </div>
-                                    <h6>Jan 20</h6>
-                                </li>
-                                <li>
-                                    <div class="d-flex align-items-center">
-                                        <div class="circle">
-                                            <i class="far fa-image"></i>
-                                        </div>
-                                        <h3>DreamsHRMS</h3>
-                                    </div>
-                                    <h6>Jan 20</h6>
-                                </li>
-                                <li>
-                                    <div class="d-flex align-items-center">
-                                        <div class="circle">
-                                            <i class="far fa-image"></i>
-                                        </div>
-                                        <h3>DreamsHRMS</h3>
-                                    </div>
-                                    <h6>Jan 20</h6>
-                                </li>
-                                <li>
-                                    <div class="d-flex align-items-center">
-                                        <div class="circle">
-                                            <i class="far fa-image"></i>
-                                        </div>
-                                        <h3>DreamsHRMS</h3>
-                                    </div>
-                                    <h6>Jan 20</h6>
-                                </li>
-                                <li>
-                                    <div class="d-flex align-items-center">
-                                        <div class="circle">
-                                            <i class="far fa-image"></i>
-                                        </div>
-                                        <h3>DreamsHRMS</h3>
-                                    </div>
-                                    <h6>Jan 20</h6>
-                                </li>
-                                <li>
-                                    <div class="d-flex align-items-center">
-                                        <div class="circle">
-                                            <i class="far fa-image"></i>
-                                        </div>
-                                        <h3>DreamsHRMS</h3>
-                                    </div>
-                                    <h6>Jan 20</h6>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="btn-emp-sec">
-                        <a href="#" class="btn-emp c1"><i class="far fa-folder-open"></i>
-                            File Manager</a>
-                        <a href="#" class="btn-emp c2"><i class="far fa-handshake"></i> Meetings</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-</div>
+</div

@@ -36,37 +36,68 @@
                                                 @php $i = 1; @endphp
                                                 <tbody>
 
-                                                        @foreach($users as $user)
+                                                        @foreach($employees as $employee)
                                                         <tr>
                                                                 <td>Date</td>
                                                                 <td>
                                                                         <h2 class="table-avatar">
                                                                                 <a href="#" class="avatar">
-                                                                                        @if(!is_null($user->image))
-                                                                                        <img alt=""
-                                                                                                src="{{asset('backend/assets/img/'.$user->image)}}">
+                                                                                        @if (!is_null($employee->image))
+                                                                                        <img src="{{asset('backend/assets/img/employee/' . $employee->image)}}"
+                                                                                                alt="User Image">
                                                                                         @else
-                                                                                        <img alt=""
-                                                                                                src="{{asset('backend/assets/img/employee/default_user.jpg')}}">
+                                                                                        <img src="{{asset('backend/assets/img/employee/default_user.jpg')}}"
+                                                                                                alt="User Image">
                                                                                         @endif
                                                                                 </a>
-                                                                                <a href="#">{{$user->name}}<span>Web
-                                                                                                Developer</span></a>
+                                                                                <a href="#">{{$employee->name}}
+                                                                                        <span>
+                                                                                                @if($employee->designation
+                                                                                                == 1)
+                                                                                                Jr Developer
+                                                                                                @elseif($employee->designation
+                                                                                                == 2)
+                                                                                                Sr Developer
+                                                                                                @elseif($employee->designation
+                                                                                                == 3)
+                                                                                                Sr Developer
+                                                                                                @else
+                                                                                                @endif
+                                                                                        </span></a>
                                                                         </h2>
                                                                 </td>
                                                                 <td>In Time</td>
-                                                                <td>Oute Time</td>
+                                                                <td>Out Time</td>
                                                                 <td>IP Address</td>
+
+
                                                         </tr>
 
 
                                                         @foreach($employee_attendance as $attendance)
                                                         <tr>
-                                                                <td>@php echo date('M-Y'); @endphp</td>
+                                                                <td>{{$attendance->created_at->format('D-F-Y')}}</td>
                                                                 <td></td>
-                                                                <td>{{$attendance->time_in}}</td>
-                                                                <td>{{$attendance->time_out}}</td>
-                                                                <td>{{$attendance->ip_address}}</td>
+                                                                <td>
+                                                                        @if($employee->id == $attendance->user_id)
+                                                                        {{$attendance->created_at->format('h:i:s A')}}
+                                                                        @else
+                                                                        @endif
+                                                                </td>
+                                                                <td>
+                                                                        @if($employee->id == $attendance->user_id)
+                                                                        {{-- {{$attendance->created_at->format('h:i')}}
+                                                                        --}}
+                                                                        @else
+                                                                        @endif
+                                                                </td>
+                                                                <td>
+                                                                        @if($employee->id == $attendance->user_id)
+                                                                        {{$attendance->ip_address}}
+                                                                        @else
+                                                                        @endif
+
+                                                                </td>
                                                         </tr>
                                                         @endforeach
                                                         @endforeach

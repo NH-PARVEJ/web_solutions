@@ -18,14 +18,10 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     // For Welcome Page 
-    public const HOME = '/';
+    public const HOME = 'employee/dashboard';
 
     // for super admin // admin dashboard
     public const ADMIN_DASHBOARD = 'admin/dashboard';
-
-    // for Employee 
-    public const EMPLOYEE_DASHBOARD = 'employee/dashboard';
-
 
 
     /**

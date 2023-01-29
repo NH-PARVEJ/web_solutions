@@ -6,17 +6,19 @@
                 home
             </span>
         </a>
-        <a class="nav-link" id="v-pills-apps-tab" title="Apps" data-bs-toggle="pill" href="#v-pills-apps" role="tab"
-            aria-controls="v-pills-apps" aria-selected="false">
+        {{-- <a class="nav-link" id="v-pills-apps-tab" title="Apps" data-bs-toggle="pill" href="#v-pills-apps"
+            role="tab" aria-controls="v-pills-apps" aria-selected="false">
             <span class="material-icons-outlined">
                 dashboard
             </span>
-        </a>
-        <a class="nav-link" id="v-pills-employees-tab" title="Employees" data-bs-toggle="pill" href="#v-pills-employees"
-            role="tab" aria-controls="v-pills-employees" aria-selected="false">
+        </a> --}}
+        {{-- <a class="nav-link" id="v-pills-employees-tab" title="Employees" data-bs-toggle="pill"
+            href="#v-pills-employees" role="tab" aria-controls="v-pills-employees" aria-selected="false">
             <span class="material-icons-outlined">
                 people
-            </span>
+            </span> --}}
+
+            {{--
         </a>
         <a class="nav-link" id="v-pills-clients-tab" title="Clients" data-bs-toggle="pill" href="#v-pills-clients"
             role="tab" aria-controls="v-pills-clients" aria-selected="false">
@@ -182,6 +184,6 @@
             <span class="material-icons-outlined">
                 library_add_check
             </span>
-        </a>
+        </a> --}}
     </div>
 </div>

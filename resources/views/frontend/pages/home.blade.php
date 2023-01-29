@@ -30,7 +30,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{route('admin.dashboard')}}">Dashboard</a></li>
+
+                    @foreach ($employees as $employee)
+                    @if(auth()->user()->role == 1)
+                    <li class="nav-item"><a class="nav-link"
+                            href="{{route('employee.dashboard', $employee->id)}}">Dashboard</a></li>
+                    @elseif(auth()->user()->role == 2)
+                    <li class="nav-item"><a class="nav-link"
+                            href="{{route('employee.dashboard', $employee->id)}}">Dashboard</a></li>
+                    @else
+                    <li class="nav-item"><a class="nav-link" href="{{route('/')}}">Dashboard</a></li>
+                    @endif
+
+                    @endforeach
+
+
                 </ul>
             </div>
         </div>

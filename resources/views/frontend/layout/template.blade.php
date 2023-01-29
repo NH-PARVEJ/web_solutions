@@ -3,25 +3,25 @@
 
 <head>
 
-    @include('backend.include.header')
+    @include('frontend.include.header')
 
-    @include('backend.include.css')
+    @include('frontend.include.css')
 
 </head>
 
 <body>
 
     <div class="main-wrapper">
-        @include('backend.include.topbar')
+        @include('frontend.include.topbar')
 
-        @include('backend.include.sidebar')
+        @include('frontend.include.sidebar')
 
         @yield('body-content')
 
     </div>
 
 
-    @include('backend.include.script')
+    @include('frontend.include.script')
 </body>
 
 </html>

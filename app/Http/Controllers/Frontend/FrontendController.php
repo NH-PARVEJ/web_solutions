@@ -16,14 +16,27 @@ class FrontendController extends Controller
      */
     public function index($id)
     {
-        $employee    = User::find($id);
-        // $attendance  = Attendance::find($id);
-        $attendance = DB::table('users')->join('attendances', 'users.id', '=', 'attendances.user_id')->get();
+        $employee     = User::find($id);
+        $attendances  = Attendance::orderBy('id', 'asc')->get(); 
         if(!is_null($employee)){
-            return view('Frontend.dashboard', compact('employee','attendance'));
+            return view('frontend.pages.dashboard', compact('employee', 'attendances'));
         }
 
-    }   
+    } 
+
+
+     public function employee_dashboard($id)
+    {
+        $employees     = User::find($id);
+        $attendances  = Attendance::orderBy('id', 'asc')->get(); 
+        if(!is_null($employees)){
+            return view('frontend.pages.home', compact('employees', 'attendances'));
+        }
+        
+    } 
+
+
+  
 
     /**
      * Show the form for creating a new resource.

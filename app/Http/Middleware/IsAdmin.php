@@ -19,12 +19,6 @@ class IsAdmin
        if(auth()->user()->role == 1){
         return $next($request);
        }
-       else if(auth()->user()->role == 2){
-        return redirect()->to('/employee/dashboard');
-       }
-       else if(auth()->user()->role == 3){
-        return redirect('/employee/dashboard');
-       }
        else{
         return redirect('/')->with('Sorry!!! You Have No Access in the Backend');
        }
