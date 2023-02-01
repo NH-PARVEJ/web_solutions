@@ -1,5 +1,4 @@
-@extends('backend.layout.template')
-
+@extends('frontend.layout.template')
 <div class="page-wrapper">
 
     <div class="content container-fluid pb-0">
@@ -9,8 +8,8 @@
                     <h3>Dashboard</h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Employee Dashboard</li>
+                            <li class="breadcrumb-item"><a href="{{url('/employee/dashboard')}}">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Profile</li>
                         </ol>
                     </nav>
                 </div>
@@ -34,7 +33,7 @@
                             @elseif($employee->designation == 1)
                             Sr Developer
                             @else
-                            Project-Manager
+                            Project Manager
                             @endif
 
                         </h5>
@@ -50,9 +49,8 @@
             <div class="col-md-12 col-lg-12 col-xl-3 d-flex">
                 <div class="card user-card flex-fill">
                     <div class="qr-img-sec text-center">
-                        @if (!is_null($employee->image))
-                        <img width="300px" src="{{asset('backend/assets/img/qr_code/' . $employee->qr_code_image)}}"
-                            alt="User Image">
+                        @if (!is_null($employee->qr_code_image))
+                        <img src="{{asset('backend/assets/img/qr_code/' . $employee->qr_code_image)}}" alt="User Image">
                         @else
                         <img src="{{asset('backend/assets/img/qr_code/qr_code.jpg')}}" alt="User Image">
                         @endif
@@ -62,7 +60,7 @@
             </div>
 
 
-            <div class="col-md-12 col-lg-8 col-xl-6 d-flex">
+            {{-- <div class="col-md-12 col-lg-8 col-xl-6 d-flex">
                 <div class="card project-card flex-fill">
                     <h4><i class="fas fa-cube"></i> Projects</h4>
                     <div class="row">
@@ -132,10 +130,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
-        <div class="row">
+
+
+        {{-- <div class="row">
             <div class="col-md-12 col-lg-4 d-flex">
                 <div class="card att-card flex-fill">
                     <div class="card-header">
@@ -193,7 +193,7 @@
                 </div>
             </div>
 
-            {{-- <div class="col-md-12 col-lg-4 col-xl-3 d-flex">
+            <div class="col-md-12 col-lg-4 col-xl-3 d-flex">
                 <div class="card project-card flex-fill">
                     <h4><i class="fab fa-dropbox"></i> Recent Projects</h4>
                     <div class="row">
@@ -263,9 +263,10 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
-        </div>
+        </div> --}}
+
         <div class="row">
             {{-- <div class="col-md-12 col-lg-12 col-xl-5 d-flex">
                 <div class="card att-card flex-fill">
@@ -382,29 +383,55 @@
                         <h3 class="card-title mb-0">Attendance List</h3>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-nowrap custom-table mb-0">
+                        <div class="table-responsive table-hover">
+                            <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>#SL</th>
+                                        <th>Date</th>
                                         <th>Name</th>
-                                        <th>Punch In</th>
-                                        <th>Punch Out</th>
-                                        <th>IP Address</th>
+                                        <th>In Time</th>
+                                        <th>Out Time</th>
+                                        {{-- <th>IP Address</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($attendances as $attendance )
                                     <tr>
-                                        <td>1</td>
                                         <td>
-                                            <h2><a href="#"></a>{{$employee->time_in}}</h2>
+                                            {{$attendance->created_at->format('d-F-Y')}}
                                         </td>
-                                        <td>{{$employee->ip_address}}</td>
-                                        <td>{{$employee->time_in}}</td>
                                         <td>
-                                            <span class="badge bg-inverse-warning">{{$employee->time_in}}</span>
+                                            @if($employee->id == $attendance->user_id)
+                                            {{$attendance->employee_attendance_code}}
+                                            @else
+                                            @endif
                                         </td>
+                                        <td>
+                                            <h2><a href="#"></a> @if($employee->id == $attendance->user_id)
+                                                {{$attendance->created_at->format('h:i:s A')}}
+                                                @else
+                                                @endif</h2>
+                                        </td>
+
+                                        <td>
+                                            {{-- <span class="badge bg-inverse-warning"> --}}
+                                                @if($employee->id == $attendance->user_id)
+                                                {{-- {{$attendance->created_at->format('h:i')}}
+                                                --}}
+                                                @else
+                                                @endif
+
+                                                {{-- </span> --}}
+                                        </td>
+
+                                        {{-- <td>@if($employee->id == $attendance->user_id)
+                                            {{$attendance->ip_address}}
+                                            @else
+                                            @endif</td> --}}
+
                                     </tr>
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>
@@ -414,4 +441,4 @@
         </div>
     </div>
 
-</div
+</div>

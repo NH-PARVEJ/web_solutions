@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Attendance;
+use App\Models\User;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -12,10 +15,21 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function admin_dashboard()
     {
         return view('backend.pages.dashboard');
     }
+
+
+    public function admin_profile($id)
+    {
+        $employee     = User::find($id);
+        $attendances  = Attendance::orderBy('id', 'asc')->get(); 
+        if(!is_null($employee)){
+            return view('backend.pages.profile', compact('employee', 'attendances'));
+        }
+
+    } 
 
     /**
      * Show the form for creating a new resource.

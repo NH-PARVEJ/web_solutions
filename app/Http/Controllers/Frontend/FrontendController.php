@@ -5,38 +5,40 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\User;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 class FrontendController extends Controller
-{
-    /**
+{  
+     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function employee_dashboard()
+    {
+        $attendances  = Attendance::orderBy('id', 'asc')->get(); 
+        return view('frontend.pages.dashboard', compact('attendances'));
+    } 
+
+
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+
+
+
+    public function profile($id)
     {
         $employee     = User::find($id);
         $attendances  = Attendance::orderBy('id', 'asc')->get(); 
         if(!is_null($employee)){
-            return view('frontend.pages.dashboard', compact('employee', 'attendances'));
+            return view('frontend.pages.employee.profile', compact('employee', 'attendances'));
         }
 
     } 
 
-
-     public function employee_dashboard($id)
-    {
-        $employees     = User::find($id);
-        $attendances  = Attendance::orderBy('id', 'asc')->get(); 
-        if(!is_null($employees)){
-            return view('frontend.pages.home', compact('employees', 'attendances'));
-        }
-        
-    } 
-
-
-  
 
     /**
      * Show the form for creating a new resource.

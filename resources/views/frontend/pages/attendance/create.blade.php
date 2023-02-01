@@ -1,4 +1,4 @@
-@extends('backend.layout.template')
+@extends('frontend.layout.template')
 
 <div class="page-wrapper" onload="startTime()">
     <div class="content container-fluid">
@@ -9,7 +9,8 @@
                     <h3>Attendance</h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="
+                                {{url('/employee/dashboard')}}">Dashboard</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Attendance</li>
                         </ol>
                     </nav>

@@ -38,6 +38,7 @@
 
                 <div class="row">
                         @foreach ($employees as $employee)
+                        @if($employee->role > 1)
                         <div class="col-md-4 col-lg-4 col-xl-3">
                                 <div class="card user-card emp-card">
                                         <div class="user-img-sec">
@@ -55,7 +56,7 @@
                                                         @elseif($employee->designation == 2)
                                                         Sr Developer
                                                         @else
-                                                        Project-Manager
+                                                        Project Manager
                                                         @endif
                                                 </h5>
                                                 <h6 class="bg-1">
@@ -91,13 +92,16 @@
                                         </div>
                                         <div class="card-body pb-0">
                                                 <h4>Employee ID <span>FT-{{$employee->id}}</span></h4>
-                                                <h4>Date of Join <span>{{$employee->created_at}}</span></h4>
+                                                <h4>Date of Join <span>{{$employee->created_at->format('d-F-Y')}}</span>
+                                                </h4>
                                         </div>
                                         <div class="card-footer">
-                                                <a href="{{route('employee.dashboard',$employee->id)}}">View Profile</a>
+                                                <a href="{{route('view.employee.profile',$employee->id)}}">View
+                                                        Profile</a>
                                         </div>
                                 </div>
                         </div>
+                        @endif
                         @endforeach
                 </div>
         </div>

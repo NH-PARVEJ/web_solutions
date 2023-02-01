@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\User;
 use Carbon\Carbon;
+
 class AttendanceController extends Controller
 {
     /**
@@ -18,8 +19,16 @@ class AttendanceController extends Controller
     {
         $employee_attendance = Attendance::orderBy('id', 'asc')->get();
         $employees = User::orderBy('id', 'asc')->get();
+        return view('frontend.pages.attendance.create', compact('employee_attendance','employees'));
+    }
+
+    public function manage()
+    {
+        $employee_attendance = Attendance::orderBy('id', 'asc')->get();
+        $employees = User::orderBy('id', 'asc')->get();
         return view('backend.pages.attendance.manage', compact('employee_attendance','employees'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +36,9 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        //
+        $employee_attendance = Attendance::orderBy('id', 'asc')->get();
+        $employees = User::orderBy('id', 'asc')->get();
+        return view('frontend.pages.attendance.create', compact('employee_attendance','employees'));
     }
 
     /**
@@ -38,7 +49,27 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+              $employeeIP = request()->ip();
+        $current = Carbon::now();
+        $employee_attendance = new Attendance();
+
+        // if($employee_attendance->employee_attendance_code	 == $request->employee_attendance_code){  
+        $employee_attendance->employee_attendance_code        = $request->employee_attendance_code;
+        $employee_attendance->user_id                         = $request->user_id;
+        $employee_attendance->time_in                         = $current;
+        $employee_attendance->time_out                        = $current;
+        $employee_attendance->ip_address                      = $employeeIP;
+        
+        $employee_attendance->save();
+        return redirect()->back();
+    // }  
+
+    // else{
+    //   echo '<div class="alert alert-warning" role="alert">please go your seat and submit only your attendance through the your account</div>';
+        
+    // }
+
+
     }
 
     /**

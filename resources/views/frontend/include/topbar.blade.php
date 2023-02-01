@@ -1,11 +1,11 @@
 <div class="header">
     <div class="header-left">
-        <a href="admin-dashboard.html" class="logo">
+        <a href="#" class="logo">
             <img src="{{asset('backend/assets/img/logo.png')}}" width="40" height="40" alt="">
         </a>
     </div>
     <div class="header-center">
-        <h3>Web Solutions</h3>
+        <h4>Web Solutions</h4>
     </div>
     <a id="toggle_btn" href="javascript:void(0);">
         <span class="bar-icon">
@@ -149,13 +149,20 @@
 
         <li class="nav-item dropdown has-arrow main-drop">
             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                <span class="user-img"><img src="assets/img/profiles/avatar-21.jpg" alt=""></span>
+                <span class="user-img">
+                    @if (Auth::user()->image)
+                    <img style="height: 30px !important;"
+                        src="{{asset('backend/assets/img/employee/'.Auth::user()->image)}}" alt="User Image">
+                    @else
+                    <img src="{{asset('backend/assets/img/employee/default_user.jpg')}}" alt="User Image">
+                    @endif
+                </span>
                 <span>
-                    @if(Auth::check()) {{Auth::user()->name}} @endif
+                    {{Auth::user()->name}}
                 </span>
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="profile.html">My Profile</a>
+                <a class="dropdown-item" href="{{route('profile',Auth::user()->id)}}">My Profile</a>
                 <a class="dropdown-item" href="settings.html">Settings</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -171,7 +178,7 @@
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i
                 class="fa fa-ellipsis-v"></i></a>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="profile.html">My Profile</a>
+            <a class="dropdown-item" href="{{route('profile',Auth::user()->id)}}">My Profile</a>
             <a class="dropdown-item" href="settings.html">Settings</a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

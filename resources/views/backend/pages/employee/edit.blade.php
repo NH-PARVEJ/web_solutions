@@ -57,14 +57,15 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="col-form-label">Password</label>
-                                        <input name="password" class="form-control" type="password">
+                                        <input name="password" autofocus="off" class="form-control" type="password">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="col-form-label">Confirm
                                             Password</label>
-                                        <input class="form-control" name="repeat_password" type="password">
+                                        <input class="form-control" autofocus="off" name="repeat_password"
+                                            type="password">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">

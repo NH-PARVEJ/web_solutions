@@ -2,22 +2,20 @@
     <div class="tab-content" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel"
             aria-labelledby="v-pills-dashboard-tab">
-            <p>Dashboard</p>
             <ul>
                 <li>
-                    <a href="{{route('admin.dashboard')}}" class="active">Admin Dashboard</a>
+                    <a href="{{route('admin.dashboard')}}" class="active">Dashboard</a>
                 </li>
             </ul>
         </div>
 
         <div class="tab-pane fade" id="v-pills-employees" role="tabpanel" aria-labelledby="v-pills-employees-tab">
-            <p>Employees</p>
+            <p>Employee</p>
             <ul>
                 <li><a href="{{route('employee.manage')}}">All Employees</a></li>
-                <li><a href="leaves.html">Leaves (Employee)<span
-                            class="badge rounded-pill bg-primary float-end">1</span></a></li>
-                <li><a href="{{route('attendance.manage')}}">Attendance (Admin)</a></li>
-                <li><a href="{{route('attendance.create')}}">Attendance (Employee)</a></li>
+                <li><a href="#">Leave Application<span class="badge rounded-pill bg-primary float-end">1</span></a></li>
+                <li><a href="{{route('attendance.manage')}}">Attendance</a></li>
+
             </ul>
         </div>
 

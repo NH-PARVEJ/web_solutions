@@ -8,7 +8,8 @@
                                         <nav aria-label="breadcrumb">
                                                 <ol class="breadcrumb">
                                                         <li class="breadcrumb-item"><a
-                                                                        href="admin-dashboard.html">Dashboard</a></li>
+                                                                        href="{{route('admin.dashboard')}}">Dashboard</a>
+                                                        </li>
                                                         <li class="breadcrumb-item active" aria-current="page">
                                                                 Attendance
                                                         </li>
@@ -23,14 +24,14 @@
                                 <div class="table-responsive">
                                         <table class="table table-hover table-striped custom-table mb-0 datatable">
                                                 <thead>
-                                                        <tr>
+                                                        {{-- <tr>
                                                                 <th>Date</th>
                                                                 <th>Employee</th>
                                                                 <th>In Time</th>
                                                                 <th>Oute Time</th>
                                                                 <th>IP Address</th>
 
-                                                        </tr>
+                                                        </tr> --}}
                                                 </thead>
 
                                                 @php $i = 1; @endphp
@@ -63,7 +64,8 @@
                                                                                                 Sr Developer
                                                                                                 @else
                                                                                                 @endif
-                                                                                        </span></a>
+                                                                                        </span>
+                                                                                </a>
                                                                         </h2>
                                                                 </td>
                                                                 <td>In Time</td>
@@ -76,17 +78,30 @@
 
                                                         @foreach($employee_attendance as $attendance)
                                                         <tr>
-                                                                <td>{{$attendance->created_at->format('D-F-Y')}}</td>
-                                                                <td></td>
+                                                                <td>{{$attendance->created_at->format('d-F-Y')}}</td>
                                                                 <td>
                                                                         @if($employee->id == $attendance->user_id)
-                                                                        {{$attendance->created_at->format('h:i:s A')}}
+                                                                        {{$attendance->employee_attendance_code}}
                                                                         @else
                                                                         @endif
                                                                 </td>
                                                                 <td>
                                                                         @if($employee->id == $attendance->user_id)
+                                                                        {{$attendance->created_at->format('h:i:s A')}}
+                                                                        @else
+                                                                        <div
+                                                                                class="text-light rounded text-center bg-danger">
+                                                                                <span>Absent</span>
+                                                                        </div>
+                                                                        {{-- <i class="fas fa-times text-danger"></i>
+                                                                        --}}
+                                                                        @endif
+                                                                </td>
+                                                                <td>
+                                                                        @if($employee->id == $attendance->user_id)
                                                                         {{-- {{$attendance->created_at->format('h:i')}}
+                                                                        --}}
+                                                                        {{-- <i class="fas fa-times text-danger"></i>
                                                                         --}}
                                                                         @else
                                                                         @endif

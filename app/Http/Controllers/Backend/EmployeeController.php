@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 use File;
 use Image;
 use App\Models\User;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -11,17 +12,50 @@ use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
+
+        /**
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function employee_profile($id)
+    {
+        $employee     = User::find($id);
+        $attendances  = Attendance::orderBy('id', 'asc')->get(); 
+        if(!is_null($employee)){
+            return view('frontend.pages.employee.profile', compact('employee', 'attendances'));
+        } 
+    } 
+
+
+
+            /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function employee_view($id)
+    {
+        $employee     = User::find($id);
+        $attendances  = Attendance::orderBy('id', 'asc')->get(); 
+        if(!is_null($employee)){
+            return view('backend.pages.profile', compact('employee', 'attendances'));
+        } 
+    } 
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+
     public function index()
     {
-        $employees = User::orderBy('id', 'asc')->where('role', 2)->get();
+        $employees = User::orderBy('id', 'asc')->get();
         return view('backend.pages.employee.manage', compact('employees'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *

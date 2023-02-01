@@ -7,11 +7,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="page-head-box">
-                    <h3>Welcome Admin!</h3>
+                    <h3>Welcome {{Auth::user()->name}} [ Admin ]</h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Job Dashboard</li>
+                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                         </ol>
                     </nav>
                 </div>
