@@ -1,4 +1,5 @@
-<script data-cfasync="false" src="{{asset('backend/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js')}}">
+<script data-cfasync="false"
+    src="{{asset('public/backend/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js')}}">
 </script>
 <script src="{{asset('backend/assets/js/jquery-3.6.0.min.js')}}"></script>
 

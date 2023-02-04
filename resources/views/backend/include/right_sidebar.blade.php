@@ -17,6 +17,22 @@
             <span class="material-icons-outlined">
                 people
             </span>
+
+            <a class="nav-link" id="v-pills-payroll-tab" title="Payroll" data-bs-toggle="pill" href="#v-pills-payroll"
+                role="tab" aria-controls="v-pills-payroll" aria-selected="false">
+                <span class="material-icons-outlined">
+                    request_quote
+                </span>
+            </a>
+
+            <a class="nav-link" id="v-pills-accounting-tab" title="Accounting" data-bs-toggle="pill"
+                href="#v-pills-accounting" role="tab" aria-controls="v-pills-accounting" aria-selected="false">
+                <span class="material-icons-outlined">
+                    account_balance_wallet
+                </span>
+            </a>
+
+
         </a>
         <a class="nav-link" id="v-pills-clients-tab" title="Clients" data-bs-toggle="pill" href="#v-pills-clients"
             role="tab" aria-controls="v-pills-clients" aria-selected="false">
@@ -28,19 +44,6 @@
             role="tab" aria-controls="v-pills-projects" aria-selected="false">
             <span class="material-icons-outlined">
                 topic
-            </span>
-        </a>
-
-        <a class="nav-link" id="v-pills-accounting-tab" title="Accounting" data-bs-toggle="pill"
-            href="#v-pills-accounting" role="tab" aria-controls="v-pills-accounting" aria-selected="false">
-            <span class="material-icons-outlined">
-                account_balance_wallet
-            </span>
-        </a>
-        <a class="nav-link" id="v-pills-payroll-tab" title="Payroll" data-bs-toggle="pill" href="#v-pills-payroll"
-            role="tab" aria-controls="v-pills-payroll" aria-selected="false">
-            <span class="material-icons-outlined">
-                request_quote
             </span>
         </a>
 

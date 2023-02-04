@@ -1,45 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Backend;
 
-use App\Models\User;
-use App\Models\Attendance;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-class FrontendController extends Controller
-{  
-     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+use Illuminate\Http\Request;
 
-    public function employee_dashboard()
-    {
-        $attendances  = Attendance::orderBy('id', 'asc')->get(); 
-        return view('frontend.pages.dashboard', compact('attendances'));
-    } 
-
-
-        /**
+class OfficeExpenseController extends Controller
+{
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-
-
-    public function profile($id)
+    public function index()
     {
-        $employee     = User::find($id);
-        $attendances  = Attendance::orderBy('id', 'asc')->get(); 
-        if(!is_null($employee)){
-            return view('frontend.pages.employee.profile', compact('employee', 'attendances'));
-        }
+        return view('backend.pages.expense.manage');
+    }
 
-    } 
-
-    
     /**
      * Show the form for creating a new resource.
      *
@@ -49,7 +26,6 @@ class FrontendController extends Controller
     {
         //
     }
-
 
     /**
      * Store a newly created resource in storage.

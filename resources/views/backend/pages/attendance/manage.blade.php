@@ -24,14 +24,15 @@
                                 <div class="table-responsive">
                                         <table class="table table-hover table-striped custom-table mb-0 datatable">
                                                 <thead>
-                                                        {{-- <tr>
+                                                        <tr>
                                                                 <th>Date</th>
                                                                 <th>Employee</th>
                                                                 <th>In Time</th>
+                                                                <th>authorization</th>
                                                                 <th>Oute Time</th>
                                                                 <th>IP Address</th>
 
-                                                        </tr> --}}
+                                                        </tr>
                                                 </thead>
 
                                                 @php $i = 1; @endphp
@@ -39,7 +40,13 @@
 
                                                         @foreach($employees as $employee)
                                                         <tr>
-                                                                <td>Date</td>
+                                                        </tr>
+
+
+                                                        @foreach($employee_attendance as $attendance)
+                                                        <tr>
+
+                                                                <td>{{$attendance->created_at->format('d-F-Y')}}</td>
                                                                 <td>
                                                                         <h2 class="table-avatar">
                                                                                 <a href="#" class="avatar">
@@ -68,23 +75,8 @@
                                                                                 </a>
                                                                         </h2>
                                                                 </td>
-                                                                <td>In Time</td>
-                                                                <td>Out Time</td>
-                                                                <td>IP Address</td>
 
 
-                                                        </tr>
-
-
-                                                        @foreach($employee_attendance as $attendance)
-                                                        <tr>
-                                                                <td>{{$attendance->created_at->format('d-F-Y')}}</td>
-                                                                <td>
-                                                                        @if($employee->id == $attendance->user_id)
-                                                                        {{$attendance->employee_attendance_code}}
-                                                                        @else
-                                                                        @endif
-                                                                </td>
                                                                 <td>
                                                                         @if($employee->id == $attendance->user_id)
                                                                         {{$attendance->created_at->format('h:i:s A')}}
@@ -97,6 +89,16 @@
                                                                         --}}
                                                                         @endif
                                                                 </td>
+
+
+
+                                                                <td>
+                                                                        @if($employee->id == $attendance->user_id)
+                                                                        {{$attendance->employee_attendance_code}}
+                                                                        @else
+                                                                        @endif
+                                                                </td>
+
                                                                 <td>
                                                                         @if($employee->id == $attendance->user_id)
                                                                         {{-- {{$attendance->created_at->format('h:i')}}

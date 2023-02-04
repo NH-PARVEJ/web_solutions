@@ -34,11 +34,11 @@ class AuthenticatedSessionController extends Controller
 
         }
         else if(Auth::user()->role == 2){
-            return redirect()->intended(RouteServiceProvider::EMPLOYEE_DASHBOARD);
+            return redirect()->intended(RouteServiceProvider::HOME);
 
         }
         else if(Auth::user()->role == 3){
-            return redirect()->intended(RouteServiceProvider::EMPLOYEE_DASHBOARD);
+            return redirect()->intended(RouteServiceProvider::HOME);
 
         }
 

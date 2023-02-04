@@ -17,7 +17,7 @@ class AttendanceController extends Controller
     public function index()
     {
         $employee_attendance = Attendance::orderBy('id', 'asc')->get();
-        $employees = User::orderBy('id', 'asc')->get();
+        $employees = User::orderBy('name', 'asc')->get();
         return view('backend.pages.attendance.manage', compact('employee_attendance','employees'));
     }
     /**
