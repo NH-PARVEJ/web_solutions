@@ -82,7 +82,6 @@ class EmployeeController extends Controller
             $employee->phone                      = $request->phone;
             $employee->email                      = $request->email;
             $employee->address                    = $request->address;
-            $employee->employee_attendance_code   = $request->employee_attendance_code;
             $employee->designation                = $request->designation;
             $employee->department                 = $request->department;
             $employee->gender                     = $request->gender;
@@ -97,15 +96,6 @@ class EmployeeController extends Controller
                 Image::make($image)->save($location);
                 $employee->image = $img;
             }
-
-            if($request->qr_code_image){
-                $qr_code_image = $request->file('qr_code_image');
-                $qr_code = time() . '.' . $qr_code_image->getClientOriginalExtension();
-                $location = public_path('backend/assets/img/qr_code/' . $qr_code);
-                Image::make($qr_code_image)->save($location);
-                $employee->qr_code_image = $qr_code;
-            }
-
 
             $employee->save();  
             return redirect()->back();
@@ -157,14 +147,10 @@ class EmployeeController extends Controller
         $employee = User::find($id);
 
         if(!is_null($employee)){
-
-            if( $request->password == $request->repeat_password){
-                $employee->password                   = Hash::make($request->password);
                 $employee->name                       = $request->name;
                 $employee->phone                      = $request->phone;
                 $employee->email                      = $request->email;
                 $employee->address                    = $request->address;
-                $employee->employee_attendance_code   = $request->employee_attendance_code;
                 $employee->designation                = $request->designation;
                 $employee->department                 = $request->department;
                 $employee->gender                     = $request->gender;
@@ -185,19 +171,7 @@ class EmployeeController extends Controller
                     $employee->image = $img;
                 }
             }
-    
-                   // delete image
-                   if(File::exists('backend/assets/img/qr_code/' . $employee->qr_code_image)){
-                      File::delete('backend/assets/img/qr_code/' . $employee->qr_code_image);
-                    }
-                      
-                if($request->qr_code_image){
-                    $qr_code_image = $request->file('qr_code_image');
-                    $qr_code = time() . '.' . $qr_code_image->getClientOriginalExtension();
-                    $location = public_path('backend/assets/img/qr_code/' . $qr_code);
-                    Image::make($qr_code_image)->save($location);
-                    $employee->qr_code_image = $qr_code;
-                }
+
             }
     
     
@@ -205,7 +179,6 @@ class EmployeeController extends Controller
                 return redirect()->route('employee.manage');
 
      }
-    }
 
 
     /**

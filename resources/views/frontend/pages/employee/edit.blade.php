@@ -1,4 +1,4 @@
-@extends('backend.layout.template')
+@extends('frontend.layout.template')
 <div class="page-wrapper">
     <div class="content container-fluid pb-0">
         <div class="row">
@@ -7,8 +7,8 @@
                     <h3>Employee</h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Employee
+                            <li class="breadcrumb-item"><a href="#">Employee</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Profile
                             </li>
                         </ol>
                     </nav>
@@ -20,14 +20,14 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="modal-title">Edit Employee</h5>
+                        <h5 class="modal-title">Edit Profile</h5>
                         </button>
                     </div>
 
                     <div class="card-body">
                         {{--######################################################## Edit Employee Form
                         ########################################################--}}
-                        <form action="{{route('employee.update',$employee->id)}}" method="POST"
+                        <form action="{{route('employee.profile.update',$employee->id)}}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row">
@@ -69,7 +69,7 @@
                                             type="text">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                {{-- <div class="col-sm-4">
 
                                     <div class="form-group">
                                         <label>Designation <span class="text-danger">*</span></label>
@@ -120,8 +120,8 @@
 
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
+                                </div> --}}
+                                {{-- <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Department <span class="text-danger">*</span></label>
 
@@ -143,7 +143,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Gender<span class="text-danger">*</span></label>
@@ -160,7 +160,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                {{-- <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Role<span class="text-danger">*</span></label>
                                         <select name="role" class="form-select" aria-label="Default select example">
@@ -180,8 +180,8 @@
                                             </option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
+                                </div> --}}
+                                {{-- <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Status<span class="text-danger">*</span></label>
                                         <select name="status" class="form-select" aria-label="Default select example">
@@ -195,7 +195,7 @@
                                                 @endif>Inactive</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <div class="col-md-4">

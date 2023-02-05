@@ -13,8 +13,6 @@
             <p>Employees</p>
             <ul>
                 <li><a href="{{route('leave.create')}}">Leaves</a></li>
-                <li><a href="{{route('attendance.create')}}">Attendance</a></li>
-
             </ul>
         </div>
 

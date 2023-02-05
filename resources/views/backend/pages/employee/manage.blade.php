@@ -52,11 +52,21 @@
                                                 <h4>{{$employee->name}}</h4>
                                                 <h5>
                                                         @if($employee->designation == 1)
-                                                        Jr Developer
+                                                        Sr. WordPress Developer
                                                         @elseif($employee->designation == 2)
-                                                        Sr Developer
+                                                        Jr. Wordpress Developer
+                                                        @elseif($employee->designation == 3)
+                                                        Expert Wordpress Developer
+                                                        @elseif($employee->designation == 4)
+                                                        Shopify Expert
+                                                        @elseif($employee->designation == 5)
+                                                        PHP & Laravel Expert
+                                                        @elseif($employee->designation == 6)
+                                                        JavaScript Developer
+                                                        @elseif($employee->designation == 7)
+                                                        Social Media Marketer
                                                         @else
-                                                        Project Manager
+                                                        WordPress Learner
                                                         @endif
                                                 </h5>
                                                 <h6 class="bg-1">
@@ -133,18 +143,14 @@
                                                         </div>
                                                         <div class="col-sm-4">
                                                                 <div class="form-group">
-                                                                        <label class="col-form-label">Phone
-                                                                                <span
-                                                                                        class="text-danger">*</span></label>
+                                                                        <label class="col-form-label">Phone</label>
                                                                         <input value="{{old('phone')}}" name="phone"
                                                                                 class="form-control" type="tel">
                                                                 </div>
                                                         </div>
                                                         <div class="col-sm-4">
                                                                 <div class="form-group">
-                                                                        <label class="col-form-label">Email
-                                                                                <span
-                                                                                        class="text-danger">*</span></label>
+                                                                        <label class="col-form-label">Email</label>
                                                                         <input value="{{old('email')}}" name="email"
                                                                                 class="form-control" type="email">
                                                                 </div>
@@ -166,37 +172,17 @@
                                                         </div>
                                                         <div class="col-sm-4">
                                                                 <div class="form-group">
-                                                                        <label class="col-form-label">Employee Profile
-                                                                                <span
-                                                                                        class="text-danger">*</span></label>
+                                                                        <label class="col-form-label">Employee
+                                                                                Profile</label>
                                                                         <input value="{{old('image')}}" name="image"
                                                                                 type="file" class="form-control">
                                                                 </div>
                                                         </div>
+
                                                         <div class="col-sm-4">
                                                                 <div class="form-group">
-                                                                        <label class="col-form-label">QR Code
-                                                                                <span
-                                                                                        class="text-danger">*</span></label>
-                                                                        <input value="{{old('qr_code_image')}}"
-                                                                                name="qr_code_image" type="file"
-                                                                                class="form-control">
-                                                                </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                        <label class="col-form-label">Address
-                                                                        </label>
+                                                                        <label class="col-form-label">Address</label>
                                                                         <input value="{{old('address')}}" name="address"
-                                                                                class="form-control" type="text">
-                                                                </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                        <label class="col-form-label">QR Code Key
-                                                                        </label>
-                                                                        <input value="{{old('employee_attendance_code')}}"
-                                                                                name="employee_attendance_code"
                                                                                 class="form-control" type="text">
                                                                 </div>
                                                         </div>
@@ -210,15 +196,22 @@
                                                                                 aria-label="Default select example">
                                                                                 <option selected>Designation
                                                                                 </option>
-                                                                                <option value="1">Jr.
+                                                                                <option value="1">Sr. WordPress
+                                                                                        Developer</option>
+                                                                                <option value="2">Jr. Wordpress
+                                                                                        Developer</option>
+                                                                                <option value="3">Expert Wordpress
                                                                                         Developer
                                                                                 </option>
-                                                                                <option value="2">Sr
-                                                                                        Developer
                                                                                 </option>
-                                                                                <option value="3">Project
-                                                                                        Manager
+                                                                                <option value="4">Shopify Expert
                                                                                 </option>
+                                                                                <option value="5">PHP & Laravel
+                                                                                        Expert</option>
+                                                                                <option value="6">JavaScript Developer
+                                                                                </option>
+                                                                                <option value="7">Social Media Marketer
+
                                                                         </select>
                                                                 </div>
                                                         </div>

@@ -1,5 +1,4 @@
 @extends('frontend.layout.template')
-
 @section('body-content')
 <div class="page-wrapper">
     <div class="content container-fluid pb-0">
@@ -16,6 +15,86 @@
                 </div>
             </div>
         </div>
+
+
+
+        <div class="row">
+            <div class="col-md-4 d-flex">
+                <div class="card punch-status flex-fill">
+                    <div class="card-body">
+                        <h5 class="card-sub-title">Time</h5>
+                        <div class="punch-finger">
+
+                        </div>
+                        <div class="punch-info text-center">
+                            <span style="font-size: 70px;" id="MyClockDisplay" onload="showTime()">12:50</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-body">
+                        <h5 class="card-sub-title">Attendance</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card st-card st-c1">
+                                    <div class="stats-info">
+                                        <form action="{{route('attendance.store')}}" method="POST">
+                                            @csrf
+                                            <div class="radio-tile-group">
+
+                                                <div class="input-container">
+                                                    <input type="radio" value="{{date('Y-m-d H:i:s')}}" name="time_in">
+                                                    <div class="radio-tile">
+                                                        <ion-icon name="arrow-down-circle"></ion-icon>
+                                                        <label>Punch in</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="input-container">
+                                                    <input type="radio" value="{{date('Y-m-d H:i:s')}}" name="time_out">
+                                                    <div class="radio-tile">
+                                                        <ion-icon name="arrow-up-circle"></ion-icon>
+                                                        <label>Punch out
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+
+
+                                            <div class="submit-section col-md-12">
+                                                <button class="btn btn-primary submit-btn">Submit</button>
+                                            </div>
+
+                                    </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-4 d-flex">
+                <div class="card punch-status flex-fill">
+                    <div class="card-body">
+                        <h5 class="card-sub-title">Notice Board</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
         {{-- <div class="row">
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
@@ -818,81 +897,57 @@
         </div> --}}
 
 
+        <div class="table-responsive">
+            <table class=" table-hover table table-striped custom-table mb-0 datatable dataTable no-footer"
+                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>In Time</th>
+                        <th>Out Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($attendances as $attendance )
+                    <tr>
+
+                        <td>
+                            {{$attendance->created_at->format('d-F-Y')}}
+                        </td>
+
+                        <td>
+                            @if(Auth::user()->id == $attendance->user_id)
+                            @if(!is_null($attendance->time_in))
+                            {{ Carbon\Carbon::parse($attendance->time_in)->format('h:i:s A')}}
+                            @else
+                            @endif
+                            @endif
+                        </td>
+
+                        <td>
+                            @if(Auth::user()->id == $attendance->user_id)
+                            @if(!is_null($attendance->time_out))
+                            {{ Carbon\Carbon::parse($attendance->time_out)->format('h:i:s A')}}
+                            @else
+                            @endif
+                            @endif
+
+                        </td>
 
 
+                    </tr>
+                    @endforeach
 
-
-
-        <div class="col-md-12 d-flex">
-            <div class="card card-table flex-fill">
-                <div class="card-header">
-                    <h3 class="card-title mb-0">Attendance List</h3>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive table-hover">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Name</th>
-                                    <th>In Time</th>
-                                    <th>Out Time</th>
-                                    {{-- <th>IP Address</th> --}}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($attendances as $attendance )
-                                <tr>
-
-                                    <td>
-                                        {{$attendance->created_at->format('d-F-Y')}}
-                                    </td>
-                                    <td>
-                                        @if(Auth::user()->id == $attendance->user_id)
-                                        {{$attendance->employee_attendance_code}}
-                                        @else
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <h2><a href="#"></a> @if(Auth::user()->id == $attendance->user_id)
-                                            {{$attendance->created_at->format('h:i:s A')}}
-                                            @else
-                                            @endif</h2>
-                                    </td>
-
-                                    <td>
-                                        {{-- <span class="badge bg-inverse-warning"> --}}
-                                            @if(Auth::user()->id == $attendance->user_id)
-                                            {{-- {{$attendance->created_at->format('h:i')}}
-                                            --}}
-                                            @else
-                                            @endif
-
-                                            {{-- </span> --}}
-                                    </td>
-
-                                    {{-- <td>@if(Auth::user()->id == $attendance->user_id)
-                                        {{$attendance->ip_address}}
-                                        @else
-                                        @endif</td> --}}
-
-                                </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                </tbody>
+            </table>
         </div>
+
+
+
+
+
+
+
     </div>
 
-
-
-
-
-
-
-</div>
-
-@endsection
+    @endsection

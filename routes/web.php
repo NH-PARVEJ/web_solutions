@@ -29,10 +29,12 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-
 Route::group(['prefix' => '/employee'], function(){
     route::get('/dashboard', [FrontendController::class, 'employee_dashboard'])->middleware(['auth'])->name('employee.dashboard');
     route::get('/profile/{id}', [FrontendController::class, 'profile'])->middleware(['auth'])->name('profile');
+    route::get('/edit/{id}', [FrontendController::class, 'edit'])->middleware(['auth'])->name('employee.profile.edit');
+    route::post('/update/{id}', [FrontendController::class, 'update'])->middleware(['auth'])->name('employee.profile.update');
+
 
     route::group(['prefix' => 'attendance'], function(){
         route::get('/create', [AttendanceController::class, 'create'])->middleware(['auth'])->name('attendance.create');

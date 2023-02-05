@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-
+use File;
+use Image;
 use App\Models\User;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
@@ -27,8 +28,6 @@ class FrontendController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
-
     public function profile($id)
     {
         $employee     = User::find($id);
@@ -39,39 +38,6 @@ class FrontendController extends Controller
 
     } 
 
-    
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -81,7 +47,10 @@ class FrontendController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = User::find($id);
+        if(!is_null($employee)){
+            return view('frontend.pages.employee.edit', compact('employee'));
+        }
     }
 
     /**
@@ -93,17 +62,38 @@ class FrontendController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee = User::find($id);
+
+        if(!is_null($employee)){
+
+                $employee->name                       = $request->name;
+                $employee->phone                      = $request->phone;
+                $employee->email                      = $request->email;
+                $employee->address                    = $request->address;
+                $employee->gender                     = $request->gender;
+
+                if($request->image){
+                    // delete image
+                   if(File::exists('backend/assets/img/employee/' . $employee->image)){
+                      File::delete('backend/assets/img/employee/' . $employee->image);
+                    }
+    
+                if($request->image){
+                    $image = $request->file('image');
+                    $img = time() . '.' . $image->getClientOriginalExtension();
+                    $location = public_path('backend/assets/img/employee/' . $img);
+                    Image::make($image)->save($location);
+                    $employee->image = $img;
+                }
+            }
+
+            }
+    
+    
+                $employee->save();  
+                return redirect()->route('employee.dashboard');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+
 }
