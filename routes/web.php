@@ -39,6 +39,7 @@ Route::group(['prefix' => '/employee'], function(){
     route::group(['prefix' => 'attendance'], function(){
         route::get('/create', [AttendanceController::class, 'create'])->middleware(['auth'])->name('attendance.create');
         route::post('/store', [AttendanceController::class, 'store'])->middleware(['auth'])->name('attendance.store');
+        route::post('/update', [AttendanceController::class, 'update'])->middleware(['auth'])->name('attendance.update');
     });
 
     route::group(['prefix' => 'leave'], function(){
@@ -87,7 +88,7 @@ Route::group(['prefix' => '/admin'], function(){
             route::get('manage', [LeaveController::class, 'index'])->middleware(['auth','IsAdmin'])->name('leave.manage');
             route::get('/edit/{id}', [LeaveController::class, 'admin_edit'])->middleware(['auth','IsAdmin'])->name('leave.admin_edit');
             route::post('/update/{id}', [LeaveController::class, 'admin_update'])->middleware(['auth','IsAdmin'])->name('leave.admin_update');
-            route::post('/destroy/{id}', [LeaveController::class, 'destroy'])->middleware(['auth'])->name('leave.destroy');
+            route::post('/destroy/{id}', [LeaveController::class, 'admin_destroy'])->middleware(['auth','IsAdmin'])->name('leave.admin_destroy');
         }); 
     });
 

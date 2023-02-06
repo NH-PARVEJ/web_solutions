@@ -19,96 +19,36 @@
                         </div>
                 </div>
 
-                <div class="row">
-                        <div class="col-md-6">
-                                <div class="table-responsive">
-                                        <table class="table table-hover table-striped custom-table mb-0 datatable">
-                                                <thead>
-                                                        <tr>
-                                                                <th>Date</th>
-                                                                <th>Employee</th>
-                                                                <th>In Time</th>
 
-                                                        </tr>
-                                                </thead>
+                <div class="card">
+                        <div class="card-header">
 
-                                                @php $i = 1; @endphp
-                                                <tbody>
+                                <div class="row">
+                                        <div class="col-sm-6 col-md-3">
+                                                <div class="form-group mb-0">
+                                                        <input id="min" name="min" type="text" class="form-control"
+                                                                placeholder="From">
+                                                </div>
+                                        </div>
 
-                                                        @foreach($employees as $employee)
-                                                        <tr>
-
-                                                                <td></td>
-                                                                <td>
-                                                                        <h2 class="table-avatar">
-                                                                                <a href="#" class="avatar">
-                                                                                        @if (!is_null($employee->image))
-                                                                                        <img src="{{asset('backend/assets/img/employee/' . $employee->image)}}"
-                                                                                                alt="User Image">
-                                                                                        @else
-                                                                                        <img src="{{asset('backend/assets/img/employee/default_user.jpg')}}"
-                                                                                                alt="User Image">
-                                                                                        @endif
-                                                                                </a>
-                                                                                <a href="#">{{$employee->name}}
-                                                                                        <span>
-                                                                                                @if($employee->designation
-                                                                                                == 1)
-                                                                                                Jr Developer
-                                                                                                @elseif($employee->designation
-                                                                                                == 2)
-                                                                                                Sr Developer
-                                                                                                @elseif($employee->designation
-                                                                                                == 3)
-                                                                                                Sr Developer
-                                                                                                @else
-                                                                                                @endif
-                                                                                        </span>
-                                                                                </a>
-                                                                        </h2>
-                                                                </td>
-                                                                <td></td>
-                                                        </tr>
-
-
-                                                        @foreach($employee_attendance as $attendance)
-                                                        <tr>
-                                                                <td>{{$attendance->created_at->format('d-F-Y')}}</td>
-                                                                <td></td>
-
-                                                                <td>
-                                                                        @if($employee->id == $attendance->user_id)
-                                                                        {{
-                                                                        Carbon\Carbon::parse($attendance->time_in)->format('h:i:s
-                                                                        A')}}
-                                                                        @else
-                                                                        <div
-                                                                                class="text-light rounded text-center bg-danger">
-                                                                                <span>Absent</span>
-                                                                        </div>
-                                                                        @endif
-                                                                </td>
-
-
-
-
-                                                        </tr>
-                                                        @endforeach
-                                                        @endforeach
-                                                </tbody>
-
-                                        </table>
-
+                                        <div class="col-sm-6 col-md-3">
+                                                <div class="form-group mb-0">
+                                                        <input id="max" name="max" type="text" class="form-control"
+                                                                placeholder="to">
+                                                </div>
+                                        </div>
                                 </div>
-                        </div>
 
-
-                        <div class="col-md-4">
-                                <div class="table-responsive">
-                                        <table class="table table-hover table-striped custom-table mb-0 datatable">
+                                <div class=" mt-3 table-responsive">
+                                        <table id="example" class="table-hover table table-striped table-bordered"
+                                                style="width:100%">
                                                 <thead>
                                                         <tr>
-                                                                <th>Oute Time</th>
+
+                                                                <th>Employee</th>
+                                                                <th>Date</th>
+                                                                <th>Time</th>
+                                                                <th>Status</th>
                                                                 <th>IP Address</th>
 
                                                         </tr>
@@ -118,12 +58,12 @@
                                                 <tbody>
 
                                                         @foreach($employees as $employee)
+
+                                                        @foreach($employee_attendance as $attendance)
                                                         <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                {{-- <td>
+                                                                <td>
                                                                         <h2 class="table-avatar">
-                                                                                <a href="#" class="avatar">
+                                                                                <a class="avatar">
                                                                                         @if (!is_null($employee->image))
                                                                                         <img src="{{asset('backend/assets/img/employee/' . $employee->image)}}"
                                                                                                 alt="User Image">
@@ -132,44 +72,63 @@
                                                                                                 alt="User Image">
                                                                                         @endif
                                                                                 </a>
-                                                                                <a href="#">{{$employee->name}}
+                                                                                <a>{{$employee->name}}
                                                                                         <span>
                                                                                                 @if($employee->designation
                                                                                                 == 1)
-                                                                                                Jr Developer
+                                                                                                Sr. WordPress Developer
                                                                                                 @elseif($employee->designation
                                                                                                 == 2)
-                                                                                                Sr Developer
+                                                                                                Jr. Wordpress Developer
                                                                                                 @elseif($employee->designation
                                                                                                 == 3)
-                                                                                                Sr Developer
+                                                                                                Expert Wordpress
+                                                                                                Developer
+                                                                                                @elseif($employee->designation
+                                                                                                == 4)
+                                                                                                Shopify Expert
+                                                                                                @elseif($employee->designation
+                                                                                                == 5)
+                                                                                                PHP & Laravel Expert
+                                                                                                @elseif($employee->designation
+                                                                                                == 6)
+                                                                                                JavaScript Developer
+                                                                                                @elseif($employee->designation
+                                                                                                == 7)
+                                                                                                Social Media Marketer
                                                                                                 @else
+                                                                                                intern
                                                                                                 @endif
                                                                                         </span>
                                                                                 </a>
                                                                         </h2>
-                                                                </td> --}}
-                                                        </tr>
+                                                                </td>
+                                                                <td>{{$attendance->created_at->format('d-F-Y')}}</td>
 
-
-                                                        @foreach($employee_attendance as $attendance)
-                                                        <tr>
 
                                                                 <td>
                                                                         @if($employee->id == $attendance->user_id)
                                                                         {{
-                                                                        Carbon\Carbon::parse($attendance->time_out)->format('h:i:s
+                                                                        Carbon\Carbon::parse($attendance->time)->format('h:i:s
                                                                         A')}}
                                                                         @else
+                                                                        @endif
+                                                                </td>
+
+                                                                <td>
+                                                                        @if($employee->id == $attendance->user_id)
+                                                                        {{$attendance->attendance_status}}
                                                                         @endif
                                                                 </td>
                                                                 <td>
                                                                         @if($employee->id == $attendance->user_id)
                                                                         {{$attendance->ip_address}}
-                                                                        @else
                                                                         @endif
 
                                                                 </td>
+
+
+
                                                         </tr>
                                                         @endforeach
                                                         @endforeach
@@ -178,8 +137,7 @@
                                         </table>
 
                                 </div>
+
                         </div>
                 </div>
-
         </div>
-</div>

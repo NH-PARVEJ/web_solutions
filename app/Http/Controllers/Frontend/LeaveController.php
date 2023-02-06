@@ -118,7 +118,7 @@ class LeaveController extends Controller
         // $leaves->status    = $request->status;
 
         $leaves->save();
-        return redirect()->route('leave.manage');
+        return redirect()->route('leave.create');
     }
 
 
@@ -157,6 +157,28 @@ class LeaveController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        $leaves = Leave::find($id);
+
+        if(!is_null($leaves)){
+
+            $leaves->delete();
+
+            return redirect()->back();
+             
+        }
+    }
+
+
+
+
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_destroy($id)
     {
         $leaves = Leave::find($id);
 

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamp('time_in')->nullable();
-            $table->timestamp('time_out')->nullable();
+            $table->timestamp('time')->useCurrent();
+            $table->string('attendance_status');
             $table->integer('user_id');
             $table->string('ip_address')->nullable();
             $table->string('status')->default(1)->comment('1=Active 2=Inactive');

@@ -66,7 +66,7 @@
                                                         @elseif($employee->designation == 7)
                                                         Social Media Marketer
                                                         @else
-                                                        WordPress Learner
+                                                        Intern
                                                         @endif
                                                 </h5>
                                                 <h6 class="bg-1">

@@ -16,8 +16,6 @@
             </div>
         </div>
 
-
-
         <div class="row">
             <div class="col-md-4 d-flex">
                 <div class="card punch-status flex-fill">
@@ -27,7 +25,7 @@
 
                         </div>
                         <div class="punch-info text-center">
-                            <span style="font-size: 70px;" id="MyClockDisplay" onload="showTime()">12:50</span>
+                            <span style="font-size: 65px;" id="MyClockDisplay" onload="showTime()">12:50</span>
                         </div>
 
                     </div>
@@ -48,7 +46,7 @@
                                             <div class="radio-tile-group">
 
                                                 <div class="input-container">
-                                                    <input type="radio" value="{{date('Y-m-d H:i:s')}}" name="time_in">
+                                                    <input type="radio" value="in" name="attendance_status">
                                                     <div class="radio-tile">
                                                         <ion-icon name="arrow-down-circle"></ion-icon>
                                                         <label>Punch in</label>
@@ -56,10 +54,10 @@
                                                 </div>
 
                                                 <div class="input-container">
-                                                    <input type="radio" value="{{date('Y-m-d H:i:s')}}" name="time_out">
+                                                    <input type="radio" value="out" name="attendance_status">
                                                     <div class="radio-tile">
                                                         <ion-icon name="arrow-up-circle"></ion-icon>
-                                                        <label>Punch out
+                                                        <label>Punch out </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -70,10 +68,10 @@
                                             <div class="submit-section col-md-12">
                                                 <button class="btn btn-primary submit-btn">Submit</button>
                                             </div>
-
+                                        </form>
                                     </div>
 
-                                    </form>
+
 
                                 </div>
                             </div>
@@ -896,50 +894,72 @@
             </div>
         </div> --}}
 
+        <div class="card">
+            <div class="card-header">
 
-        <div class="table-responsive">
-            <table class=" table-hover table table-striped custom-table mb-0 datatable dataTable no-footer"
-                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>In Time</th>
-                        <th>Out Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($attendances as $attendance )
-                    <tr>
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group mb-0">
+                            <input id="min" name="min" type="text" class="form-control" placeholder="From">
+                        </div>
+                    </div>
 
-                        <td>
-                            {{$attendance->created_at->format('d-F-Y')}}
-                        </td>
-
-                        <td>
-                            @if(Auth::user()->id == $attendance->user_id)
-                            @if(!is_null($attendance->time_in))
-                            {{ Carbon\Carbon::parse($attendance->time_in)->format('h:i:s A')}}
-                            @else
-                            @endif
-                            @endif
-                        </td>
-
-                        <td>
-                            @if(Auth::user()->id == $attendance->user_id)
-                            @if(!is_null($attendance->time_out))
-                            {{ Carbon\Carbon::parse($attendance->time_out)->format('h:i:s A')}}
-                            @else
-                            @endif
-                            @endif
-
-                        </td>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group mb-0">
+                            <input id="max" name="max" type="text" class="form-control" placeholder="to">
+                        </div>
+                    </div>
+                </div>
 
 
-                    </tr>
-                    @endforeach
 
-                </tbody>
-            </table>
+                <div class=" mt-3 table-responsive">
+                    <table id="example" class="display table-hover nowrap table table-striped table-bordered"
+                        style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($attendances as $attendance )
+                            <tr>
+
+                                <td>
+                                    {{$attendance->created_at->format('d-F-Y')}}
+                                </td>
+
+                                <td>
+                                    @if(Auth::user()->id == $attendance->user_id)
+                                    @if(!is_null($attendance->time))
+                                    {{ Carbon\Carbon::parse($attendance->time)->format('h:i:s A')}}
+                                    @else
+                                    @endif
+                                    @endif
+                                </td>
+
+                                <td>
+
+
+                                    @if(Auth::user()->id == $attendance->user_id)
+                                    @if(!is_null($attendance->attendance_status))
+                                    {{$attendance->attendance_status}}
+                                    @else
+                                    @endif
+                                    @endif
+
+                                </td>
+
+
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
 

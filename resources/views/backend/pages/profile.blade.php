@@ -43,7 +43,7 @@
                             @elseif($employee->designation == 7)
                             Social Media Marketer
                             @else
-                            WordPress Learner
+                            intern
                             @endif
 
                         </h5>
@@ -88,52 +88,61 @@
 
 
             @if($employee->role > 1)
-            <div class="table-responsive">
-                <table class=" table-hover table table-striped custom-table mb-0 datatable dataTable no-footer"
-                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>In Time</th>
-                            <th>Out Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($attendances as $attendance )
-                        <tr>
+            <div class="card">
+                <div class="card-header">
 
-                            <td>
-                                {{$attendance->created_at->format('d-F-Y')}}
-                            </td>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group mb-0">
+                                <input id="min" name="min" type="text" class="form-control" placeholder="From">
+                            </div>
+                        </div>
 
-                            <td>
-                                @if($employee->id == $attendance->user_id)
-                                @if(!is_null($attendance->time_in))
-                                {{ Carbon\Carbon::parse($attendance->time_in)->format('h:i:s A')}}
-                                @else
-                                <div class="text-light rounded text-center bg-danger">
-                                    <span>Absent</span>
-                                </div>
-                                @endif
-                                @endif
-                            </td>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group mb-0">
+                                <input id="max" name="max" type="text" class="form-control" placeholder="to">
+                            </div>
+                        </div>
+                    </div>
 
-                            <td>
-                                @if($employee->id == $attendance->user_id)
-                                @if(!is_null($attendance->time_out))
-                                {{ Carbon\Carbon::parse($attendance->time_out)->format('h:i:s A')}}
-                                @else
-                                @endif
-                                @endif
+                    <div class="mt-3 table-responsive">
+                        <table id="example" class="table-hover table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($attendances as $attendance )
+                                <tr>
 
-                            </td>
+                                    <td>
+                                        {{$attendance->created_at->format('d-F-Y')}}
+                                    </td>
+
+                                    <td>
+                                        @if($employee->id == $attendance->user_id)
+                                        {{ Carbon\Carbon::parse($attendance->time)->format('h:i:s A')}}
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if($employee->id == $attendance->user_id)
+                                        {{$attendance->attendance_status}}
+                                        @endif
+
+                                    </td>
 
 
-                        </tr>
-                        @endforeach
+                                </tr>
+                                @endforeach
 
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
             @endif

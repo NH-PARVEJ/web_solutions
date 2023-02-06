@@ -49,13 +49,14 @@ class AttendanceController extends Controller
     public function store(Request $request)
     {
         $employeeIP = request()->ip();
+        $current = Carbon::now();
         $employee_attendance = new Attendance();
 
 
-        $employee_attendance->user_id                         = $request->user_id;
-        $employee_attendance->time_in                         = $request->time_in;
-        $employee_attendance->time_out                        = $request->time_out;
-        $employee_attendance->ip_address                      = $employeeIP;
+        $employee_attendance->user_id                      = $request->user_id;
+        $employee_attendance->attendance_status            = $request->attendance_status;
+        $employee_attendance->time                         = $current;
+        $employee_attendance->ip_address                   = $employeeIP;
         
         $employee_attendance->save();
         return redirect()->back();
